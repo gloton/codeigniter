@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Test extends CI_Controller {
+class Test extends CMS_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,15 +22,9 @@ class Test extends CI_Controller {
 		echo 'Index test...';
 	}
 	
-	public function metodo2( $var1 , $var2 ) {
-		$this->load->model('test_model' , 't_model');
-		
-		//imprime todos los registros
-		//print_r($this->t_model->registro());
-		echo '<pre>';
-		//imprime todos los registros
-		print_r($this->t_model->registro(array('nombre'),array('id' => 2) , 'object'));
-		echo '</pre>';
+	public function metodo2() {
+		echo 'metodo2';
+		echo $this->admin_panel_uri();
 	}
 }
 
