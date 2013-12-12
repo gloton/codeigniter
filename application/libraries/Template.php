@@ -15,8 +15,13 @@ class Template {
 	private $message;
 	private $panel;
 	
+	/*======================================*/
 	public function __construct()
 	{
+		# & get_instance();
+		#en este caso cuando ejecuto el controlador test, es decir:
+		#http://desarrollo.local/php/codeigniter/index.php/test
+		#$this->CI contendra la clase Test que a su ves hereda la clase CMS_Controller que a su ves hereda la clase CI_Controller
 		$this->CI =& get_instance();
 		//cargara el archivo (config/templates.php) de configuracion de los templates
 		$this->CI->load->config('templates');
@@ -34,12 +39,9 @@ class Template {
 		
 		//de aca sabremos si estamos en el backend o frontend
 		$this->panel = $this->CI->admin_panel() ? 'b' : 'f';
-		echo '<pre>';
-		print_r($this->panel);
-		echo '</pre>';
-		exit();
 	} 
 	
+	/*======================================*/
 	//seteara la data
 	public function set(  $key , $value ) 
 	{
@@ -48,6 +50,65 @@ class Template {
 		}
 	}
 	
+	/*======================================*/
+	//metodo que va a cargar las vistas	
+	public function render( $view = null )
+	{
+		//obtener ruta del template
+		$template = $this->_route();
+		
+		$routes = array();
+		
+		/*
+		esta funcion tratara a la vista como un arreglo, por lo tanto se puede pasar
+		mas de una vista. Cuando solo se solicita una vista, por ejemplo:
+		en controllers/test.php $this->template->render('test');
+		este if igual crea un array con esa unica vista
+		*/
+		if (!empty($view)) 
+		{
+			if (! is_array($view))
+			{
+				$view = array($view);
+			}
+
+			foreach ($view as $file)
+			{
+				$route = $this->panel == 'b' ? 'admin/' : '';
+				#str_replace('admin/', '', $file);
+				# busca admin/ en $file y lo remplaza con una cadena vacia
+				/*
+				busca el nombre del template, si no hay, coloca dafault
+				luego busca dentro de esa carpeta "default" una subcarpeta llamada html
+				si no la encuentra ir a buscar la vista a la carpeta views
+				*/
+				/*
+				 En la carpeta html iran los archivos que compondran todas las vistas
+				 */
+				$route .= $this->name . '/html/' . str_replace('admin/', '', $file);
+				if (file_exists(APPPATH . "views/templates/{$route}.php")) {
+					$routes[] = APPPATH . "views/templates/{$route}.php";
+				}
+				elseif(file_exists(APPPATH . "views/{$file}.php"))
+				{
+					$routes[] = APPPATH . "views/{$file}.php";
+				}
+				else
+				{
+					show_error('View error');
+				}
+				
+				//para tener disponible la vista la ruta de la administracion
+				$this->data['_admin_panel_uri'] = $this->CI->admin_panel_uri();
+				//todas las vistas son cargadas aca para que sean cargadas en template.php
+				$this->data['_content'] = $routes;
+				$this->CI->load->view($template, $this->data);
+			}
+		}
+		
+	} 
+	
+	/*=================RUTA AL TEMPLATE=====================*/
 	//metodo que seteara el template por defecto, lo llamo _route porque me devolvera la ruta del template
 	private  function _route() 
 	{
@@ -60,14 +121,32 @@ class Template {
 			{
 				show_error('Template error');
 			}
+			
+			#$template->name
+			# es el nombre del campo del registro que se va a traer
+			# si no hay ningun $this->name, este asigna el string default a $template->name (en la parte de arriba)
+			# y aca asigna $template->name que seria default a $this->name
 			$this->name = $template->name;
 		}
 		
 		//si estamos trabajando en la carpeta de administracion el sistema ira a buscar la carpeta admin
 		$route .= $this->panel == 'b' ? 'admin/' : '';
-		$route .= "{$this->name}/template.php";
+		$route .= "{$this->name}/template.php"; 
+		
+		//JAGL
+		echo $route; //templates/default/template.php
+		
+		#APPPATH
+		# me devuelve la ruta de la carpeta application
+		if (!file_exists(APPPATH . "views/{$route}")) {
+			show_error('No template found');
+		}
+		
+		return $route; 
 	}
+	
+
 }
 
-/* End of file welcome.php */
+/* End of file Template.php */
 /* Location: ./application/libraries/Template.php */

@@ -10,11 +10,15 @@ class Test extends CMS_Controller {
 	public function metodo2( $var1 , $var2 ) 
 	{
 		
-		/*
-		echo '<pre>';
-		print_r($this->db->get( 'templates' )->result() );
-		*/ 
+		$this->template->render('test');
 	}
+
+	public function metodo3() 
+	{
+		
+		echo "test1047";
+	}
+
 }
 
 /* End of file welcome.php */
