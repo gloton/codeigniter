@@ -1,7 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Test extends CMS_Controller {
-
+	/*
+	CMS_Controller
+	En el constuctor de esta clase se esta cargando la libreria template
+	por lo que  
+	*/
 	public function index()
 	{
 		echo 'Index test...';
@@ -9,8 +13,8 @@ class Test extends CMS_Controller {
 	
 	public function metodo2( $var1 , $var2 ) 
 	{
-		
-		$this->template->render('test');
+		$this->cemplate->set('titulo' , 'Mi titulo');
+		$this->cemplate->render('test');
 	}
 
 	public function metodo3() 

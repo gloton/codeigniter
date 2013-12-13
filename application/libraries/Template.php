@@ -51,6 +51,17 @@ class Template {
 	}
 	
 	/*======================================*/
+	public function add_js($type, $charset = null, $defer = null, $async = null)
+	{
+		$this->_add_asset($type, $value, array('charset' => $charset, 'defer' => $defer, 'async' => $async), 'script');
+	}
+
+	/*======================================*/
+	public function add_css($type, $media = null)
+	{
+		$this->_add_asset($type, $value, array('media' => $media, 'style' => $defer, 'async' => $async), 'script');
+	}
+	/*======================================*/
 	//metodo que va a cargar las vistas	
 	public function render( $view = null )
 	{
@@ -58,7 +69,10 @@ class Template {
 		$template = $this->_route();
 		
 		$routes = array();
-		
+		echo '<pre>';
+		print_r($this->css);
+		print_r($this->js);
+		echo '</pre>';
 		/*
 		esta funcion tratara a la vista como un arreglo, por lo tanto se puede pasar
 		mas de una vista. Cuando solo se solicita una vista, por ejemplo:
@@ -145,7 +159,31 @@ class Template {
 		return $route; 
 	}
 	
-
+	/*==============================================*/
+	private function _add_asset($type, $value, $options = array(), $asset_type)
+	{
+		if (! empty($type)) {
+			if (is_array($value)) {
+				foreach ($value as $val)
+				{
+					$asset[] = array('type' => $type, 'value' => $val, 'options' => $options);
+				}
+			}
+			else
+			{
+				$asset[] = array('type' => $type, 'value' => $val, 'options' => $options);
+			}
+		}
+	
+		if ($asset_type == 'script')
+		{
+			$this->js = array_merge($this->js, $asset);
+		}
+		elseif($asset_type == 'style')
+		{
+			$this->css = array_merge($this->css, $asset);
+		}
+	}
 }
 
 /* End of file Template.php */
