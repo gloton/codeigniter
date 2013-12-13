@@ -41,8 +41,7 @@ class Template {
 		$this->panel = $this->CI->admin_panel() ? 'b' : 'f';
 	} 
 	
-	/*======================================*/
-	//seteara la data
+	/*================ADICIONAR VARIABLES QUE PUEDAN SER USADAS EN EL RENDER (funcion render)======================*/
 	public function set(  $key , $value ) 
 	{
 		if ( ! empty($key)) {
@@ -51,18 +50,18 @@ class Template {
 	}
 	
 	/*======================================*/
-	public function add_js($type, $charset = null, $defer = null, $async = null)
+	public function add_js($type, $value, $charset = null, $defer = null, $async = null)
 	{
 		$this->_add_asset($type, $value, array('charset' => $charset, 'defer' => $defer, 'async' => $async), 'script');
 	}
 
 	/*======================================*/
-	public function add_css($type, $media = null)
+	public function add_css($type, $value, $media = null)
 	{
-		$this->_add_asset($type, $value, array('media' => $media, 'style' => $defer, 'async' => $async), 'script');
+		$this->_add_asset($type, $value, array('media' => $media), 'style' );
 	}
-	/*======================================*/
-	//metodo que va a cargar las vistas	
+	
+	/*==============METODO QUE CARGARA LAS VISTAS========================*/
 	public function render( $view = null )
 	{
 		//obtener ruta del template
@@ -73,6 +72,7 @@ class Template {
 		print_r($this->css);
 		print_r($this->js);
 		echo '</pre>';
+		exit();
 		/*
 		esta funcion tratara a la vista como un arreglo, por lo tanto se puede pasar
 		mas de una vista. Cuando solo se solicita una vista, por ejemplo:
@@ -171,7 +171,8 @@ class Template {
 			}
 			else
 			{
-				$asset[] = array('type' => $type, 'value' => $val, 'options' => $options);
+				//JAGL OJO ARRIBA SICE $val y abajo $value
+				$asset[] = array('type' => $type, 'value' => $value, 'options' => $options);
 			}
 		}
 	

@@ -4,8 +4,16 @@
 $config['templates']['front']['default'] =	array(	
 													'regions'	=>	array(	
 																			'header' , 'main_menu' , 'sidebar' , 'footer'
+																	),
+													'scripts'	=>	array(	
+																			array('base' => array())
+																	),
+													'styles'	=>	array(	
+																			'header' , 'main_menu' , 'sidebar' , 'footer'
 																	)
 											);
+
+											
 
 $config['templates']['admin']['default'] =	array(	
 													'regions'	=>	array(	
