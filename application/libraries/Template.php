@@ -49,13 +49,13 @@ class Template {
 		}
 	}
 	
-	/*======================================*/
+	/*===============PARA AGREGARLO DIRECTO DESDE EL CONTROLADOR EN LA PLANTILLA=======================*/
 	public function add_js($type, $value, $charset = null, $defer = null, $async = null)
 	{
 		$this->_add_asset($type, $value, array('charset' => $charset, 'defer' => $defer, 'async' => $async), 'script');
 	}
 
-	/*======================================*/
+	/*===============PARA AGREGARLO DIRECTO DESDE EL CONTROLADOR EN LA PLANTILLA=======================*/
 	public function add_css($type, $value, $media = null)
 	{
 		$this->_add_asset($type, $value, array('media' => $media), 'style' );
@@ -163,8 +163,12 @@ class Template {
 	/*==============================================*/
 	private function _add_asset($type, $value, $options = array(), $asset_type)
 	{
-		if (! empty($type)) {
-			if (is_array($value)) {
+		if (! empty($type)) 
+		{
+			$asset = array();
+			
+			if (is_array($value)) 
+			{
 				foreach ($value as $val)
 				{
 					$asset[] = array('type' => $type, 'value' => $val, 'options' => $options);
@@ -190,20 +194,25 @@ class Template {
 	/*====================VA A SETEAR EL HTML FINAL DE LOS SCRIPT ===========================*/
 	private function _set_assets()
 	{
-		if ( ! empty($this->name) ) 
+		//esto es para cargar los css de la plantilla si es que hay uno
+		if ( ! empty($this->name) )
 		{
 			$panel = $this->panel == 'b' ? 'admin' : 'front';
-			
-			if (isset($this->configs[$panel][$this->name]['scripts']) && sizeof($this->configs[$panel][$this->name]['scripts']) > 0 ) {
+				
+			if (isset($this->configs[$panel][$this->name]['scripts']) && sizeof($this->configs[$panel][$this->name]['scripts']) > 0 ) 
+			{
+				//nota de dlancedu: los script de las plantillas, deben de ser enviados antes de los seteados en el controlador, es decir,
+				//deben de estar colocados primero en el atributo js de la clase Template
+				
 				$scripts = $this->js;
 				$this->js = array();
-
+	
 				#$this->configs[$panel][$this->name]['scripts']
 				# este es un arreglo de 4 dimensiones, la variable de array $this->configs, ya contiene el array con indice templates,
 				# el cual es asignado al principio del script
 				# $this->configs = $this->CI->config->item( 'templates' );
 				/*
-				echo '<pre>';
+					echo '<pre>';
 				print_r($this->configs[$panel][$this->name]['scripts']);
 				echo '</pre>';
 				exit();
@@ -211,43 +220,42 @@ class Template {
 				foreach ($this->configs[$panel][$this->name]['scripts'] as $script)
 				{
 					/*$script imprime lo siguiente
-						Array
-						(
-						    [type] => base
-						    [value] => template_script1
-						    [options] => Array
-						        (
-						            [charset] => utf-8
-						            [defer] => 1
-						            [async] => 1
-						        )
-						
-						)
-					 */
-						
+					 Array
+					(
+							[type] => base
+							[value] => template_script1
+							[options] => Array
+							(
+									[charset] => utf-8
+									[defer] => 1
+									[async] => 1
+							)
+	
+					)
+					*/
+	
 					$this->_add_asset($script['type'], $script['value'], isset($script['options']) ? $script['options'] : array(), 'script');
-				
+	
 				}
-				
+	
 				$this->js = array_merge($this->js, $scripts);
 			}
-			/*
 			if (isset($this->configs[$panel][$this->name]['styles']) && sizeof($this->configs[$panel][$this->name]['styles']) > 0 )
 			{
 				$styles = $this->css;
 				$this->css = array();
-			
+					
 				foreach ($this->configs[$panel][$this->name]['styles'] as $style)
 				{
 					$this->_add_asset($style['type'], $style['value'], isset($style['options']) ? $style['options'] : array(), 'style');
 				}
-			
+					
 				$this->css = array_merge($this->css, $styles);
 			}
-			*/
 		}
-		
-	}
+	
+	}//FIN FUNCION	_set_assets
+	
 }
 
 /* End of file Template.php */

@@ -30,7 +30,6 @@ class Test extends CMS_Controller {
 		$this->template->add_css('tipo', 'css3');
 		*/
 		$this->template->add_css('tipo', 'css1', 'print');
-		$this->template->add_css('tipo', array('css1', 'css2') , 'print');
 		#$this->template->set
 		# crara una variable titulo en la libreria que permanecera en memoria, ya cuando se ejecute la funcion render, al final de esa funcion llamara a la vista
 		# y enviara los datos(variables)
