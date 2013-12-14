@@ -8,7 +8,9 @@ $config['templates']['front']['default'] =	array(
 													'scripts'	=>	array(	
 																			array('type' => 'base', 'value' => 'template_script1', 'options' => array('charset' => 'utf-8', 'defer' => TRUE, 'async' => TRUE))
 																	),
-													'styles'	=>	array()
+													'styles'	=>	array(
+																			array('type' => 'base', 'value' => 'template_style1', 'options' => array('media' => 'screen'))
+																	)
 											);
 
 											
