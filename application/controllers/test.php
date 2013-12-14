@@ -18,7 +18,19 @@ class Test extends CMS_Controller {
 	public function metodo2( $var1 , $var2 ) 
 	{
 		$this->template->add_js('tipo', 'script1', 'utf-8', TRUE, TRUE);
+		/*
+		1ra forma : llamaria a un solo archivo
 		$this->template->add_css('tipo', 'css1', 'print');
+		2da forma: llamaria a traves de un array a mas de un archivo
+		$this->template->add_css('tipo', array('css1', 'css2') , 'print');
+		3ra forma:
+		llamaria a mas de un archivo pero repitiendo las llamadas a la misma funcion
+		$this->template->add_css('tipo', 'css1', 'print');
+		$this->template->add_css('tipo', 'css2', 'print');
+		$this->template->add_css('tipo', 'css3');
+		*/
+		$this->template->add_css('tipo', 'css1', 'print');
+		$this->template->add_css('tipo', array('css1', 'css2') , 'print');
 		#$this->template->set
 		# crara una variable titulo en la libreria que permanecera en memoria, ya cuando se ejecute la funcion render, al final de esa funcion llamara a la vista
 		# y enviara los datos(variables)

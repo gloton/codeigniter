@@ -68,6 +68,7 @@ class Template {
 		$template = $this->_route();
 		
 		$routes = array();
+		$this->_set_assets();
 		echo '<pre>';
 		print_r($this->css);
 		print_r($this->js);
@@ -148,7 +149,7 @@ class Template {
 		$route .= "{$this->name}/template.php"; 
 		
 		//JAGL
-		echo $route; //templates/default/template.php
+		//echo $route; //templates/default/template.php
 		
 		#APPPATH
 		# me devuelve la ruta de la carpeta application
@@ -171,7 +172,7 @@ class Template {
 			}
 			else
 			{
-				//JAGL OJO ARRIBA SICE $val y abajo $value
+				//el valor el $value porque no es un arreglo, es decir, es un solo valor asi que no hay para que recorrerlo
 				$asset[] = array('type' => $type, 'value' => $value, 'options' => $options);
 			}
 		}
@@ -184,6 +185,43 @@ class Template {
 		{
 			$this->css = array_merge($this->css, $asset);
 		}
+	}
+	
+	/*====================VA A SETEAR EL HTML FINAL DE LOS SCRIPT ===========================*/
+	private function _set_assets()
+	{
+		if ( ! empty($this->name) ) 
+		{
+			$panel = $this->panel == 'b' ? 'admin' : 'front';
+			
+			if (isset($this->configs[$panel][$this->name]['scripts']) && sizeof($this->configs[$panel][$this->name]['scripts']) > 0 ) {
+				$scripts = $this->js;
+				$this->js = array();
+				
+				foreach ($this->configs[$panel][$this->name]['scripts'] as $script)
+				{
+					$this->_add_asset($script['type'], $script['value'], isset($script['options']) ? $script['options'] : array(), 'script');
+				}
+				//exit();
+				
+				$this->js = array_merge($this->js, $scripts);
+			}
+			/*
+			if (isset($this->configs[$panel][$this->name]['styles']) && sizeof($this->configs[$panel][$this->name]['styles']) > 0 )
+			{
+				$styles = $this->css;
+				$this->css = array();
+			
+				foreach ($this->configs[$panel][$this->name]['styles'] as $style)
+				{
+					$this->_add_asset($style['type'], $style['value'], isset($style['options']) ? $style['options'] : array(), 'style');
+				}
+			
+				$this->css = array_merge($this->css, $styles);
+			}
+			*/
+		}
+		
 	}
 }
 
