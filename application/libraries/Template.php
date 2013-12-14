@@ -197,12 +197,37 @@ class Template {
 			if (isset($this->configs[$panel][$this->name]['scripts']) && sizeof($this->configs[$panel][$this->name]['scripts']) > 0 ) {
 				$scripts = $this->js;
 				$this->js = array();
-				
+
+				#$this->configs[$panel][$this->name]['scripts']
+				# este es un arreglo de 4 dimensiones, la variable de array $this->configs, ya contiene el array con indice templates,
+				# el cual es asignado al principio del script
+				# $this->configs = $this->CI->config->item( 'templates' );
+				/*
+				echo '<pre>';
+				print_r($this->configs[$panel][$this->name]['scripts']);
+				echo '</pre>';
+				exit();
+				*/
 				foreach ($this->configs[$panel][$this->name]['scripts'] as $script)
 				{
+					/*$script imprime lo siguiente
+						Array
+						(
+						    [type] => base
+						    [value] => template_script1
+						    [options] => Array
+						        (
+						            [charset] => utf-8
+						            [defer] => 1
+						            [async] => 1
+						        )
+						
+						)
+					 */
+						
 					$this->_add_asset($script['type'], $script['value'], isset($script['options']) ? $script['options'] : array(), 'script');
+				
 				}
-				//exit();
 				
 				$this->js = array_merge($this->js, $scripts);
 			}
