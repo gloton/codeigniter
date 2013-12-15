@@ -15,9 +15,9 @@ class Test extends CMS_Controller {
 		echo 'Index test...';
 	}
 	
-	public function metodo2( $var1 , $var2 ) 
+	public function metodo2() 
 	{
-		$this->template->add_js('template', 'script1', 'utf-8', TRUE, TRUE);
+		//$this->template->add_js('template', 'script1', 'utf-8', TRUE, TRUE);
 		/*
 		1ra forma : llamaria a un solo archivo
 		$this->template->add_css('tipo', 'css1', 'print');
@@ -29,8 +29,8 @@ class Test extends CMS_Controller {
 		$this->template->add_css('tipo', 'css2', 'print');
 		$this->template->add_css('tipo', 'css3');
 		*/
-		$this->template->add_css('view', 'css1', 'print');
-		$this->template->add_css('url', 'http://css1.css', 'print');
+		//$this->template->add_css('view', 'css1', 'print');
+		//$this->template->add_css('url', 'http://css1.css', 'print');
 		#$this->template->set
 		# crara una variable titulo en la libreria que permanecera en memoria, ya cuando se ejecute la funcion render, al final de esa funcion llamara a la vista
 		# y enviara los datos(variables)

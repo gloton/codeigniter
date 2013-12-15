@@ -6,10 +6,11 @@ $config['templates']['front']['default'] =	array(
 																			'header' , 'main_menu' , 'sidebar' , 'footer'
 																	),
 													'scripts'	=>	array(	
-																			array('type' => 'base', 'value' => 'template_script1', 'options' => array('charset' => 'utf-8', 'defer' => TRUE, 'async' => TRUE))
+																			array('type' => 'base', 'value' => 'bootstrap/v3/bootstrap.min')
 																	),
 													'styles'	=>	array(
-																			array('type' => 'base', 'value' => 'template_style1', 'options' => array('media' => 'screen'))
+																			array('type' => 'base', 'value' => 'bootstrap/v3/css/bootstrap.min'),
+																			array('type' => 'template', 'value' => 'custom')
 																	)
 											);
 
