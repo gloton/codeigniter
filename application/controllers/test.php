@@ -34,7 +34,13 @@ class Test extends CMS_Controller {
 		#$this->template->set
 		# crara una variable titulo en la libreria que permanecera en memoria, ya cuando se ejecute la funcion render, al final de esa funcion llamara a la vista
 		# y enviara los datos(variables)
-		$this->template->add_message('Testing...', 'success');
+		
+		//enviar alertas
+		//$this->template->add_message('Testing...', 'success');
+		$this->template->add_message(array(	'success' => array('success1','success1'),
+											'error'	=> array('error1','error2'),
+											'info' => array('info1','info2')));
+		
 		$this->template->set('titulo' , 'Mi titulo');
 		$this->template->render('test');
 	}
