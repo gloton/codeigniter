@@ -68,25 +68,27 @@
     <div class="container">
 		<div class="row">
 			<div class="col-md-8">
-			<!-- 
-				<div class="alert alert-success">
-				  <a href="#" class="alert-link">...</a>
-				</div>
-				<div class="alert alert-info">
-				  <a href="#" class="alert-link">...</a>
-				</div>
-				<div class="alert alert-warning">
-				  <a href="#" class="alert-link">...</a>
-				</div>
-				<div class="alert alert-danger">
-				  <a href="#" class="alert-link">...</a>
-				</div>
-			 -->
 			<?php foreach ($_warning as $_msg): ?>
-				<div class="alert alert-warning ">
+				<div class="alert alert-warning">
 				  <?php echo $_msg; ?>
 				</div>
 			<?php endforeach;?>
+			<?php foreach ($_success as $_msg): ?>
+				<div class="alert alert-success">
+				  <?php echo $_msg; ?>
+				</div>
+			<?php endforeach;?>
+			<?php foreach ($_error as $_msg): ?>
+				<div class="alert alert-danger">
+				  <?php echo $_msg; ?>
+				</div>
+			<?php endforeach;?>
+			<?php foreach ($_info as $_msg): ?>
+				<div class="alert alert-info">
+				  <?php echo $_msg; ?>
+				</div>
+			<?php endforeach;?>
+			
 			<?php foreach ($_content as $_view) :?>
 			<?php include $_view;?>
 			<?php endforeach;?>

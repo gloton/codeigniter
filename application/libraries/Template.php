@@ -354,7 +354,7 @@ class Template {
 			$types = array('warning', 'success', 'error', 'info');
 			
 			$check_type =	function ($_type) use ($types) {
-								return (empty($_type) || in_array($_type, $types)) ? 'warning' : $_type;
+								return (empty($_type) || ! in_array($_type, $types)) ? 'warning' : $_type;
 							};
 			if(is_array($message))
 			{
@@ -389,6 +389,7 @@ class Template {
 		}	
 	}
 	
+	/*=======================ESTE METODO ENVIA LA DATA=============================*/
 	public function _set_messages()
 	{
 		$this->data['_warning'] = isset($this->message['warning']) ? $this->message['warning'] : array();
