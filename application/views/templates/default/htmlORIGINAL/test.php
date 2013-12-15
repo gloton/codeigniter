@@ -1,1 +1,0 @@
-<h2>Vista test de la plantilla</h2>

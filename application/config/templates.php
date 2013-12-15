@@ -6,6 +6,7 @@ $config['templates']['front']['default'] =	array(
 																			'header' , 'main_menu' , 'sidebar' , 'footer'
 																	),
 													'scripts'	=>	array(	
+																			array('type' => 'base', 'value' => 'libraries/jquery/jquery-1.10.2.min'),
 																			array('type' => 'base', 'value' => 'bootstrap/v3/bootstrap.min')
 																	),
 													'styles'	=>	array(
