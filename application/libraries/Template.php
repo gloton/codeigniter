@@ -61,6 +61,10 @@ class Template {
 		$this->_add_asset($type, $value, array('media' => $media), 'style' );
 	}
 	
+	public function add_message($message, $type = NULL)
+	{
+		$this->_add_message($message, $type);
+	}
 	/*==============METODO QUE CARGARA LAS VISTAS========================*/
 	public function render( $view = null )
 	{
@@ -68,7 +72,7 @@ class Template {
 		$template = $this->_route();
 		
 		$routes = array();
-		$this->_set_assets();
+
 		/*
 		echo '<pre>';
 		print_r($this->css);
@@ -115,6 +119,8 @@ class Template {
 					show_error('View error');
 				}
 				
+				$this->_set_assets();
+				$this->_set_messages();
 				//para tener disponible la vista la ruta de la administracion
 				$this->data['_admin_panel_uri'] = $this->CI->admin_panel_uri();
 				//todas las vistas son cargadas aca para que sean cargadas en template.php
@@ -339,6 +345,57 @@ class Template {
 		$this->data['_css'] = $_css;
 	}//FIN FUNCION	_set_assets
 	
+	/*=====================ALERTA PARA LOS USUARIOS========================*/
+	private function _add_message($message, $type = NULL)
+	{
+		if( ! empty($message))
+		{
+			//estos van a hacer los 4 tipos de mensajes
+			$types = array('warning', 'success', 'error', 'info');
+			
+			$check_type =	function ($_type) use ($types) {
+								return (empty($_type) || in_array($_type, $types)) ? 'warning' : $_type;
+							};
+			if(is_array($message))
+			{
+				foreach ($message as $type => $msg)
+				{
+					if ( ! empty($message)) 
+					{
+						$type = $check_type($type);
+						
+						if (is_array($msg)) 
+						{
+							foreach ($msg as $_msg)
+							{
+								if ( ! empty($_msg)) 
+								{
+									$this->message[$type][] = (string) $_msg;
+								}
+							}
+						}
+						else
+						{
+							$this->message[$type][] = (string) $msg;
+						}
+					}
+				}
+			}
+			else
+			{
+				$type = $check_type($type);
+				$this->message[$type][] = (string) $message;
+			}
+		}	
+	}
+	
+	public function _set_messages()
+	{
+		$this->data['_warning'] = isset($this->message['warning']) ? $this->message['warning'] : array();
+		$this->data['_success'] = isset($this->message['success']) ? $this->message['success'] : array();
+		$this->data['_error'] = isset($this->message['error']) ? $this->message['error'] : array();
+		$this->data['_info'] = isset($this->message['info']) ? $this->message['info'] : array();
+	}
 }
 
 /* End of file Template.php */
