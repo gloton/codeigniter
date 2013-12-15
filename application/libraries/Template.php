@@ -69,11 +69,13 @@ class Template {
 		
 		$routes = array();
 		$this->_set_assets();
+		/*
 		echo '<pre>';
 		print_r($this->css);
 		print_r($this->js);
 		echo '</pre>';
 		exit();
+		*/
 		/*
 		esta funcion tratara a la vista como un arreglo, por lo tanto se puede pasar
 		mas de una vista. Cuando solo se solicita una vista, por ejemplo:
@@ -191,7 +193,7 @@ class Template {
 		}
 	}
 	
-	/*====================VA A SETEAR EL HTML FINAL DE LOS SCRIPT ===========================*/
+	/*====================AGREGARA LOS ARCHIVOS (CSS, JS) USANDO CONFIG/TEMPLATES.PHP ===========================*/
 	private function _set_assets()
 	{
 		//esto es para cargar los css de la plantilla si es que hay uno
@@ -253,7 +255,88 @@ class Template {
 				$this->css = array_merge($this->css, $styles);
 			}
 		}
-	
+		
+		$_css = $_js = '';
+		$panel = $this->panel == 'b' ? 'admin/' : '';
+		
+		if(sizeof($this->js) > 0)
+		{
+			foreach ($this->js as $js)
+			{
+				$defer = $async = $charset = '';
+				
+				if (isset($js['options'])) 
+				{
+					$defer = isset($js['options']['defer']) ? 'defer' : '';
+					$async = isset($js['options']['async']) ? 'async' : '';
+					$charset = isset($js['options']['charset']) ? 'charset = "'.$js['options']['charset'].'"' : '';
+				}
+				
+				#base_url()
+				#entrega la ruta enlace a la raiz del sitio por ejemplo http://localhost/codeigniter/
+				#esta es extraida desde el archivo config/config.php
+				$src = base_url() . 'assets/scripts/';
+				
+				//el tipo es para determinar donde se buscara el script
+				switch ($js['type'])
+				{
+					case 'base':
+							 $src .= $js['value'] . '.js';
+							break;
+					case 'template' :
+							$src .= 'templates/' . $panel . $this->name . '/' . $js['value'] . '.js';
+							break;
+					case 'view' :
+							$src .= 'templates/' . $js['value'] . 'js';
+							break;
+					case 'url':
+							$src .= $js['value'];
+							break;
+					default:
+							$src = '';
+				}
+				
+				$_js .= sprintf('<script type="text/javascript" src="%s" %s %s %s></script>', $src, $charset, $defer, $async);
+			}
+		}
+		
+		if(sizeof($this->css) > 0)
+		{
+			foreach ($this->css as $css)
+			{
+				$media = '';
+				
+				if (isset($js['options'])) 
+				{
+					$media = isset($css['options']['media']) ? 'media = "'.$css['options']['media'].'"' : '';
+				}
+				
+				$href  = base_url() . 'assets/styles/';
+				
+				switch ($css['type'])
+				{
+					case 'base':
+							$href .= $css['value'] . '.css';
+							break;
+					case 'template' :
+							$href .= 'templates/' . $panel . $this->name . '/' . $css['value'] . '.css';
+							break;
+					case 'view' :
+							$href .= 'templates/' . $css['value'] . 'css';
+							break;
+					case 'url':
+							$href .= $css['value'];
+							break;
+					default:
+							$href = '';
+				}
+				
+				$_css .= sprintf('<link type="text/css" rel="stylesheet" href ="%s" %s >', $href, $media);
+			}
+		}
+		
+		$this->data['_js'] = $_js;
+		$this->data['_css'] = $_css;
 	}//FIN FUNCION	_set_assets
 	
 }
