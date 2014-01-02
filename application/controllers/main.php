@@ -27,6 +27,12 @@ class Main extends CI_Controller {
     	//carga los datos de la tabla
     	$crud->set_table('employees');
     	
+    	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
+    	$crud->columns('lastName','firstName','email','jobTitle');
+    	
+    	//nombre de las columnas que aparece al mostrar la pantalla para editar un registro individual
+    	$crud->fields('lastName','firstName','email','jobTitle');
+    	
     	//crea el codigo saliente
     	$output = $crud->render();
     	
