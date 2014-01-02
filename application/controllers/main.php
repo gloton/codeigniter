@@ -20,8 +20,17 @@ class Main extends CI_Controller {
     public function employees()
     {
     	$crud = new grocery_CRUD();
+    	
+    	//se agregara empleado cuando muestre, edite o modifique
+    	$crud->set_subject('Empleado');
+    	
+    	//carga los datos de la tabla
     	$crud->set_table('employees');
+    	
+    	//crea el codigo saliente
     	$output = $crud->render();
+    	
+    	//funcion que llama a la vista
     	$this->_example_output($output);
     }
     
