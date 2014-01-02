@@ -1,0 +1,6 @@
+Ejmplo
+el tutorial es http://www.grocerycrud.com/documentation/create-crud-codeigniter-tutorial
+y no http://www.grocerycrud.com/documentation/tutorial_basic_methods
+http://desarrollo.local/php/codeigniter/index.php/main/employees/
+
+--
