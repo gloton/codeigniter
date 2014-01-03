@@ -21,11 +21,13 @@ class Main extends CI_Controller {
     {
     	$crud = new grocery_CRUD();
     	
+    	//carga los datos de la tabla
+    	$crud->set_table('employees');
+    	
     	//se agregara empleado cuando muestre, edite o modifique
     	$crud->set_subject('Empleado');
     	
-    	//carga los datos de la tabla
-    	$crud->set_table('employees');
+    	$crud->set_language('spanish');
     	
     	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
     	$crud->columns('lastName','firstName','email','jobTitle');
