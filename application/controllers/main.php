@@ -46,6 +46,32 @@ class Main extends CI_Controller {
     	$this->_example_output($output);
     }
     
+    public function employees2()
+    {
+    	$crud = new grocery_CRUD();
+    	
+    	//carga los datos de la tabla
+    	$crud->set_table('employees');
+    	
+    	//se agregara empleado cuando muestre, edite o modifique
+    	$crud->set_subject('Empleado');
+    	
+    	$crud->set_language('spanish');
+    	
+    	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
+    	$crud->columns('lastName','firstName','email','jobTitle');
+    	
+    	$crud->display_as('lastName','Apellido');
+    	
+    	//nombre de las columnas que aparece al mostrar la pantalla para editar un registro individual
+    	$crud->fields('lastName','firstName','email','jobTitle');
+    	
+    	//crea el codigo saliente
+    	$output = $crud->render();
+    	
+    	//funcion que llama a la vista
+    	$this->_example_output($output);
+    }
     function _example_output($output = null)
     
     {
