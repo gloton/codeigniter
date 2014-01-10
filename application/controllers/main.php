@@ -13,7 +13,11 @@ class Main extends CI_Controller {
  
     public function index()
     {
-        echo "<h1>Welcome to the world of Codeigniter</h1>";//Just an example to ensure that we get into the function
+?>
+		<p>Just an example to ensure that we get into the function</p>
+		<h1>Welcome to the world of Codeigniter</h1>
+		<a href="<?php echo base_url() .'index.php/main/employees/'; ?>">Ejemplo echo por mi: employees</a>
+<?php     	
         die();
     }
     

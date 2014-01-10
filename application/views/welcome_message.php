@@ -82,6 +82,8 @@
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+	
+	<a href="<?php echo base_url() .'index.php/main/employees/'; ?>">Ejemplo echo por mi: employees</a>
 </div>
 
 </body>
