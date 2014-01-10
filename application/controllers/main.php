@@ -72,8 +72,40 @@ class Main extends CI_Controller {
     	//funcion que llama a la vista
     	$this->_example_output($output);
     }
-    function _example_output($output = null)
+
+    public function employees3()
+    {
+    	$crud = new grocery_CRUD();
+    	$crud->set_theme('datatables');
+    	
+    	//carga los datos de la tabla
+    	$crud->set_table('employees');
+    	
+    	//se agregara empleado cuando muestre, edite o modifique
+    	$crud->set_subject('Empleado');
+    	
+    	$crud->set_language('spanish');
+    	
+    	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
+    	$crud->columns('lastName','firstName','email','jobTitle');
+    	
+    	$crud->add_action('More', '', 'index.php/main/action1','ui-icon-plus');
+    	
+    	//nombre de las columnas que aparece al mostrar la pantalla para editar un registro individual
+    	$crud->fields('lastName','firstName','email','jobTitle');
+    	
+    	//crea el codigo saliente
+    	$output = $crud->render();
+    	
+    	//funcion que llama a la vista
+    	$this->_example_output($output);
+    }
     
+    public function action1()
+    {
+    	echo 'test ';	
+    }
+    function _example_output($output = null)
     {
     	$this->load->view('our_template.php',$output);
     }    
