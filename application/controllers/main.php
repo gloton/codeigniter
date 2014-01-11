@@ -30,7 +30,9 @@ class Main extends CI_Controller {
     	
     	//se agregara empleado cuando muestre, edite o modifique
     	$crud->set_subject('Empleado');
+    	
     	$crud->unset_delete();
+    	
     	$crud->set_language('spanish');
     	
     	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
@@ -76,7 +78,9 @@ class Main extends CI_Controller {
     public function employees3()
     {
     	$crud = new grocery_CRUD();
+    	
     	$crud->set_theme('datatables');
+    	//$crud->set_theme('flexigrid');
     	
     	//carga los datos de la tabla
     	$crud->set_table('employees');
@@ -89,7 +93,16 @@ class Main extends CI_Controller {
     	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
     	$crud->columns('lastName','firstName','email','jobTitle');
     	
-    	$crud->add_action('More', '', 'index.php/main/action1','ui-icon-plus');
+    	//quita la columna delete
+    	$crud->unset_delete();
+    	
+    	//quita la columna edit
+    	$crud->unset_edit();
+
+    	//quita la columna view
+    	$crud->unset_read();
+    	
+    	$crud->add_action('Agregar', '', 'main/action1','ui-icon-plus');
     	
     	//nombre de las columnas que aparece al mostrar la pantalla para editar un registro individual
     	$crud->fields('lastName','firstName','email','jobTitle');
