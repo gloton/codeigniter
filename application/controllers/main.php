@@ -30,7 +30,7 @@ class Main extends CI_Controller {
     	
     	//se agregara empleado cuando muestre, edite o modifique
     	$crud->set_subject('Empleado');
-    	
+    	$crud->unset_delete();
     	$crud->set_language('spanish');
     	
     	//nombre de las columnas que quiero que se muestren al mostrar todos los registros
@@ -101,9 +101,10 @@ class Main extends CI_Controller {
     	$this->_example_output($output);
     }
     
-    public function action1()
+    public function action1($parametro)
     {
-    	echo 'test ';	
+    	//echo 'test ';
+    	echo $parametro;	
     }
     function _example_output($output = null)
     {
