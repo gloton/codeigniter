@@ -102,6 +102,15 @@ class Main extends CI_Controller {
     	//quita la columna view
     	$crud->unset_read();
     	
+    	//quitar agregar registro
+    	$crud->unset_add();
+
+    	//quitar boton exportar
+    	$crud->unset_export();
+    	
+    	//quitar boton imprimir
+    	$crud->unset_print();
+    	
     	$crud->add_action('Agregar', '', 'main/action1','ui-icon-plus');
     	
     	//nombre de las columnas que aparece al mostrar la pantalla para editar un registro individual
