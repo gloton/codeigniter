@@ -27,7 +27,7 @@ class Add_art extends CI_Controller {
 		$crud->set_language('spanish');
 		 
 		//nombre de las columnas que quiero que se muestren al mostrar todos los registros
-		$crud->columns('lastName','firstName','email','jobTitle');
+		$crud->columns('lastName');
 		 
 		//quita la columna delete
 		$crud->unset_delete();
