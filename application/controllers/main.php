@@ -126,7 +126,14 @@ class Main extends CI_Controller {
     public function action1($parametro)
     {
     	//echo 'test ';
-    	echo $parametro;	
+?>
+    	<script type="text/javascript">
+		<!--
+		var person = prompt("Please enter your name","Harry Potter");
+		//-->
+		</script>
+<?php     	
+    	echo $parametro.' '.$person;	
     }
     function _example_output($output = null)
     {
