@@ -4,3 +4,6 @@ y no http://www.grocerycrud.com/documentation/tutorial_basic_methods
 http://desarrollo.local/php/codeigniter/index.php/main/employees/
 
 --
+
+Mostrar lista de articulos
+http://desarrollo.local/php/codeigniter/index.php/add_art/lst_articulos
